@@ -206,7 +206,6 @@ multMatrices:
    move $s2, $a2
    li   $t7, 4			           # sizeof(int)
 
-   # implement above C code
 loop1_init:
    li   $s3, 0
    
@@ -229,33 +228,33 @@ loop3_cond:
    bge  $s5, $s1, loop3_end
    lw   $t1, 12($fp)               # load A
    lw   $t2, 8($fp)		           # load B
-   mul  $t3, $s3, $s1              
-   add  $t3, $t3, $s5
-   mul  $t3, $t3, $t7
-   add  $t1, $t1, $t3
+   mul  $t0, $s3, $s1              
+   add  $t0, $t0, $s5
+   mul  $t0, $t0, $t7
+   add  $t1, $t1, $t0
    lw   $t1, ($t1)                 # t1 = A[r][i]
    
-   mul  $t4, $s5, $s2
-   add  $t4, $t4, $s4
-   mul  $t4, $t4, $t7
-   add  $t2, $t2, $t4
+   mul  $t0, $s5, $s2
+   add  $t0, $t0, $s4
+   mul  $t0, $t0, $t7
+   add  $t2, $t2, $t0
    lw   $t2, ($t2)                 # t2 = B[i][c]   
    
-   mul  $t5, $t1, $t2
-   add  $s6, $s6, $t5              # sum += t1 * t2
+   mul  $t0, $t1, $t2
+   add  $s6, $s6, $t0              # sum += t1 * t2
 
 loop3_step:   
    addi $s5, $s5, 1
    j loop3_cond
    
 loop3_end:
-   lw   $t6, 4($fp)                # load C
-   mul  $t1, $s3, $s2
-   add  $t1, $t1, $s4
-   mul  $t1, $t1, $t7
-   add  $t6, $t6, $t1              # t6 = C[r][c]   
+   lw   $t3, 4($fp)                # load C
+   mul  $t0, $s3, $s2
+   add  $t0, $t0, $s4
+   mul  $t0, $t0, $t7
+   add  $t3, $t3, $t0              # t6 = C[r][c]   
 
-   sw   $s6, ($t6)
+   sw   $s6, ($t3)
    
 loop2_step:
    addi $s4, $s4, 1
